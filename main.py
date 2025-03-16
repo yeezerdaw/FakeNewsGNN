@@ -6,7 +6,7 @@ from model import FakeNewsGNN
 from train import train_model
 
 # ✅ Load Dataset
-df, y = load_liar_dataset()
+df, y = load_liar_dataset()  # Ensure df is defined
 
 # ✅ Extract BERT Features
 bert_encoder = BertEncoder()  # Initialize BERT Model
