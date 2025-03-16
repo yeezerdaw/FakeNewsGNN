@@ -1,24 +1,23 @@
-from transformers import BertTokenizer, BertModel
 import torch
-import numpy as np
+from transformers import BertTokenizer, BertModel
+import torch.nn as nn
 
-def get_bert_embeddings(text_list, batch_size=128):
-    tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-    model = BertModel.from_pretrained("bert-base-uncased")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = model.to(device)
 
-    all_embeddings = []
-    for i in range(0, len(text_list), batch_size):
-        batch_texts = text_list[i:i+batch_size]
-        inputs = tokenizer(batch_texts, padding=True, truncation=True, return_tensors="pt").to(device)
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
-        with torch.no_grad():
-            outputs = model(**inputs)
+class BertEncoder(nn.Module):
+    def __init__(self, hidden_dim=768):
+        super(BertEncoder, self).__init__()
+        self.bert = BertModel.from_pretrained("bert-base-uncased")
+        self.fc = nn.Linear(hidden_dim, hidden_dim)  # Learnable transformation layer
 
-        batch_embeddings = outputs.last_hidden_state[:, 0, :].cpu().numpy()
-        all_embeddings.append(batch_embeddings)
-        print(f"Processed {i+batch_size}/{len(text_list)} statements")
+    def forward(self, text_list):
+        inputs = tokenizer(text_list, padding=True, truncation=True, return_tensors="pt").to(device)
+        outputs = self.bert(**inputs)
+        cls_embedding = outputs.last_hidden_state[:, 0, :]  # Use CLS token embedding
+        return self.fc(cls_embedding)  # Apply trainable linear layer
 
-    return torch.tensor(np.vstack(all_embeddings), dtype=torch.float)
+
+bert_encoder = BertEncoder().to(device)

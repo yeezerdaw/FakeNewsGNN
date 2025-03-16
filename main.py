@@ -12,8 +12,9 @@ print(f"Using device: {device}")
 # Load Dataset
 df, y = load_liar_dataset()
 
-# Extract BERT Features
-x = get_bert_embeddings(df["statement"].tolist())
+
+x = bert_encoder(df["statement"].tolist())
+
 
 # Build Graph
 edge_index = build_graph(df)
