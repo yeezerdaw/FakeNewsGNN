@@ -4,7 +4,6 @@ from feature_extraction import bert_encoder
 from graph import build_graph
 from model import FakeNewsGNN
 from train import train_model
-from sklearn.metrics import classification_report
 
 
 
@@ -41,4 +40,4 @@ with torch.no_grad():
 accuracy = (predictions == y).sum().item() / y.size(0)
 print(f"Test Accuracy: {accuracy:.4f}")
 
-print(classification_report(y.cpu().numpy(), predictions.cpu().numpy(), digits=4))
+
