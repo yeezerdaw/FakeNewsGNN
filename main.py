@@ -13,7 +13,7 @@ print(f"Using device: {device}")
 df, y = load_liar_dataset()
 
 
-x = bert_encoder(df["statement"].tolist(), batch_size=32)
+x = bert_encoder(df["statement"].tolist(), batch_size=8)
 
 
 
