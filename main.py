@@ -6,7 +6,7 @@ from model import FakeNewsGNN
 from train import train_model
 
 # ✅ Load Dataset
-df, y = load_liar_dataset()  # Ensure df is defined
+df, y = load_liar_dataset()  # Make sure df is defined!
 
 # ✅ Extract BERT Features
 bert_encoder = BertEncoder()  # Initialize BERT Model
@@ -15,8 +15,10 @@ x = bert_encoder(df["statement"].tolist())  # Extract Features
 # ✅ Build Graph
 edge_index = build_graph(df)
 
-# ✅ Initialize & Train Model
+# ✅ Initialize Model
 model = FakeNewsGNN(input_dim=768, hidden_dim=128, output_dim=6)
+
+# ✅ Train Model
 model = train_model(model, x, edge_index, y)
 
 # ✅ Evaluate Model
