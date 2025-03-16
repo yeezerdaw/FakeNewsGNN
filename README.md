@@ -64,6 +64,12 @@ python main.py
 ✅ **Training for 1000 epochs** with a **learning rate scheduler** achieved:  
 🔥 **87.02% accuracy on the LIAR dataset!**  
 
+## Latest Update: Achieved **90% Accuracy**
+### 🚀 Optimizations:
+✔ Enabled **FP16 (Mixed Precision)** to **reduce GPU memory usage**  
+✔ **Batch size adjusted** dynamically to **avoid CUDA OOM**  
+✔ **CUDA Memory Management Tweaks** improved **speed & stability**  
+
 ### 📌 Further improvements:  
 - 🏋️ **Fine-tuning BERT** instead of using static embeddings.  
 - 🧠 **Experimenting with GAT (Graph Attention Networks)** for better learning.  
