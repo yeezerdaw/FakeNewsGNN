@@ -8,7 +8,7 @@ def train_model(model, x, edge_index, y, epochs=1000, lr=0.01):
 
     model = model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    scheduler = StepLR(optimizer, step_size=200, gamma=0.5)  # ✅ Adjusts LR every 200 epochs
+    scheduler = StepLR(optimizer, step_size=200, gamma=0.5)
     criterion = torch.nn.CrossEntropyLoss()
 
     for epoch in range(epochs):
@@ -22,13 +22,5 @@ def train_model(model, x, edge_index, y, epochs=1000, lr=0.01):
 
         if epoch % 10 == 0:
             print(f"Epoch {epoch}/{epochs}, Loss: {loss.item():.4f}, LR: {scheduler.get_last_lr()[0]:.6f}")
-
-    # 🔹 Evaluate Model on Training Data
-    model.eval()
-    with torch.no_grad():
-        train_predictions = model(data.x, data.edge_index).argmax(dim=1)
-
-    train_acc = (train_predictions == data.y).sum().item() / y.size(0)
-    print(f"Train Accuracy: {train_acc:.4f}")
 
     return model
