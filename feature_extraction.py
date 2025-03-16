@@ -13,11 +13,27 @@ class BertEncoder(nn.Module):
         self.bert = BertModel.from_pretrained("bert-base-uncased")
         self.fc = nn.Linear(hidden_dim, hidden_dim)  # Learnable transformation layer
 
-    def forward(self, text_list):
-        inputs = tokenizer(text_list, padding=True, truncation=True, return_tensors="pt").to(device)
-        outputs = self.bert(**inputs)
-        cls_embedding = outputs.last_hidden_state[:, 0, :]  # Use CLS token embedding
-        return self.fc(cls_embedding)  # Apply trainable linear layer
+    def forward(self, text_list, batch_size=32):
+    all_embeddings = []
+    
+    for i in range(0, len(text_list), batch_size):
+        batch_texts = text_list[i:i+batch_size]
+
+        # Tokenize batch with limited max length
+        inputs = tokenizer(batch_texts, padding=True, truncation=True, max_length=128, return_tensors="pt").to(device)
+        
+        with torch.no_grad():  # Prevent extra memory usage
+            outputs = self.bert(**inputs)
+
+        cls_embedding = outputs.last_hidden_state[:, 0, :]
+        all_embeddings.append(cls_embedding.cpu())  # Move to CPU to free GPU memory
+
+        torch.cuda.empty_cache()  # Clear unused memory
+
+        print(f"Processed {i+batch_size}/{len(text_list)} statements")
+
+    return torch.cat(all_embeddings, dim=0).to(device)  # Move final embeddings back to GPU
+
 
 
 bert_encoder = BertEncoder().to(device)
