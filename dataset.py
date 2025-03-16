@@ -4,9 +4,9 @@ from datasets import load_dataset
 
 def load_liar_dataset():
     dataset = load_dataset("liar", trust_remote_code=True)
-    df = pd.DataFrame(dataset["train"])  # Use train split
+    df = pd.DataFrame(dataset["train"])  # Use training split
 
-    # Encode labels into six truthfulness categories
+    # ✅ Encode Labels
     label_mapping = {
         0: 0,  # False
         5: 1,  # Pants-fire (Extremely False)
@@ -16,6 +16,6 @@ def load_liar_dataset():
         3: 5   # True
     }
     df["label"] = df["label"].map(label_mapping)
-    
-    y = torch.tensor(df["label"].values, dtype=torch.long)  # Convert labels to tensor
+    y = torch.tensor(df["label"].values, dtype=torch.long)
+
     return df, y
