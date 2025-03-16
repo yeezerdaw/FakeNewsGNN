@@ -4,9 +4,16 @@ from feature_extraction import bert_encoder
 from graph import build_graph
 from model import FakeNewsGNN
 from train import train_model
+import random
+import numpy as np
 
-
-
+# Fix random seeds for reproducibility
+torch.manual_seed(42)
+torch.cuda.manual_seed_all(42)
+np.random.seed(42)
+random.seed(42)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 # Detect Device (CPU/GPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
