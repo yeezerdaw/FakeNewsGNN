@@ -4,6 +4,9 @@ from feature_extraction import bert_encoder
 from graph import build_graph
 from model import FakeNewsGNN
 from train import train_model
+from sklearn.metrics import classification_report
+
+
 
 # Detect Device (CPU/GPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -37,3 +40,5 @@ with torch.no_grad():
 # Compute Accuracy
 accuracy = (predictions == y).sum().item() / y.size(0)
 print(f"Test Accuracy: {accuracy:.4f}")
+
+print(classification_report(y.cpu().numpy(), predictions.cpu().numpy(), digits=4))
