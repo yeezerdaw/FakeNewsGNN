@@ -1,6 +1,6 @@
 import torch
 from dataset import load_liar_dataset
-from feature_extraction import get_bert_embeddings
+from feature_extraction import bert_encoder
 from graph import build_graph
 from model import FakeNewsGNN
 from train import train_model
