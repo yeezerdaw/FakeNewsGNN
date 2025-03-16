@@ -23,4 +23,8 @@ def train_model(model, x, edge_index, y, epochs=1000, lr=0.01):
         if epoch % 10 == 0:
             print(f"Epoch {epoch}/{epochs}, Loss: {loss.item():.4f}, LR: {scheduler.get_last_lr()[0]:.6f}")
 
-    return model
+
+    torch.save(model.state_dict(), "fakenews_model.pth")
+    print("Model saved as fakenews_model.pth")
+
+    return model  
