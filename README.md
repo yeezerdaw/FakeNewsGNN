@@ -1,11 +1,11 @@
 
-# 📰 Fake News Detection with Graph Neural Networks (GNN)  
+# Fake News Detection with Graph Neural Networks (GNN)  
 
 A machine learning model that classifies fake news using **GraphSAGE** and **BERT embeddings**, analyzing social network propagation patterns.
 
 ---
 
-## ✨ Features  
+## Features  
 ✅ **GraphSAGE-based GNN** for learning from news propagation networks.  
 ✅ **BERT embeddings** for text representation (static embeddings).  
 ✅ **Multi-class classification** with six truthfulness categories.  
@@ -28,7 +28,7 @@ FakeNewsGNN/
 
 ---
 
-## 📊 Dataset  
+## Dataset  
 The model is trained on the **LIAR Dataset**, sourced from [Hugging Face](https://huggingface.co/datasets/liar). It consists of **12,800 manually labeled short news statements**, categorized into six levels of truthfulness:  
 
 - ❌ **False**  
@@ -40,20 +40,20 @@ The model is trained on the **LIAR Dataset**, sourced from [Hugging Face](https:
 
 ---
 
-## ⚙️ Installation & Usage  
+## Installation & Usage  
 
-### 🔹 1. Clone the Repository  
+###  1. Clone the Repository  
 ```bash
 git clone https://github.com/yourusername/FakeNewsGNN.git
 cd FakeNewsGNN
 ```
 
-### 🔹 2. Install Dependencies  
+###  2. Install Dependencies  
 ```bash
 pip install -r requirements.txt
 ```
 
-### 🔹 3. Run the Model  
+###  3. Run the Model  
 ```bash
 python main.py
 ```
@@ -61,23 +61,23 @@ python main.py
 ---
 
 ## 🎯 Results  
-✅ **Training for 1000 epochs** with a **learning rate scheduler** achieved:  
-🔥 **87.02% accuracy on the LIAR dataset!**  
+**Training for 1000 epochs** with a **learning rate scheduler** achieved:  
+**87.02% accuracy on the LIAR dataset!**  
 
 ## Latest Update: Achieved **90% Accuracy**
-### 🚀 Optimizations:
+### Optimizations:
 ✔ Enabled **FP16 (Mixed Precision)** to **reduce GPU memory usage**  
 ✔ **Batch size adjusted** dynamically to **avoid CUDA OOM**  
 ✔ **CUDA Memory Management Tweaks** improved **speed & stability**  
 
 ### 📌 Further improvements:  
-- 🏋️ **Fine-tuning BERT** instead of using static embeddings.  
-- 🧠 **Experimenting with GAT (Graph Attention Networks)** for better learning.  
-- 🔄 **Adding data augmentation** for more diverse training samples.  
+- **Fine-tuning BERT** instead of using static embeddings.  
+- **Experimenting with GAT (Graph Attention Networks)** for better learning.  
+- **Adding data augmentation** for more diverse training samples.  
 
 ---
 
-## 🏗️ Model Architecture  
+## Model Architecture  
 The model follows this pipeline:  
 
 ```plaintext
